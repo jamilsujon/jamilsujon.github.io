@@ -188,6 +188,21 @@ main .places .places-portion{
     vertical-align:middle;
 }
 
+.footer-result ul{
+    list-style:none;
+    margin:0 0 1rem;
+    padding:0;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content: center;
+}
+
+.footer-result ul li{
+    margin:0 0.5rem 0.5rem;
+}
+
+
 /* Responsive CSS*/
 @media only screen and (max-width:991px){
     section{
@@ -206,10 +221,13 @@ main .places .places-portion{
     }
     ul.nav{
         justify-content: center!important;
+        background:#eaeaea;
     }
     main .nav-link{
-        font-size:1.1rem;
-        padding:0.4rem;
+        font-size: 1.3rem;
+        padding: 0.5rem 1rem;
+        text-transform: uppercase;
+        font-weight:400;
 
     }
     main .places, main .result-parent{
@@ -221,12 +239,13 @@ main .places .places-portion{
         margin:2rem 0;
     }
     .places-portion{
-        flex-direction:column;
+        flex-direction:row;
+        flex-wrap:wrap;
     }
     .places-portion a{
         padding:2rem;
-        margin:0;
-        margin-bottom:1rem;
+        margin:0 0.5rem 1rem;
+        
     }
     .result-parent{
         margin-top:2rem;
@@ -237,12 +256,14 @@ main .places .places-portion{
     }
     .property-result{
         display:flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap:wrap;
+        justify-content: center;
        
     }
     .property-result > div{
-        margin-bottom:1rem;
-        margin-left:0;
+        margin: 0 0.5rem 1rem;
     }
 
 }
+
