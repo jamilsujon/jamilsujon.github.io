@@ -12,10 +12,7 @@ const tempCUi = document.getElementById('tempinC'),
 
 
 const checkPropertyLimit =(lower,upper,val) =>{
-    if(val<lower || val>upper){
-        return false;
-    }
-    return true;
+    return !(val<lower || val>upper)
 }
 
 const purposeSuitablity =(purpose,idealpHRange,idealTRange,pH,T)=>{
