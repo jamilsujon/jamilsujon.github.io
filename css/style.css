@@ -195,12 +195,34 @@ main .places .places-portion{
     display:flex;
     flex-direction:row;
     flex-wrap:wrap;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .footer-result ul li{
     margin:0 0.5rem 0.5rem;
 }
+
+
+.properties p{
+    margin-top:0.7rem;
+    color:rgb(32, 112, 32)
+}
+
+.properties.bg-danger p{
+    color:rgb(110, 212, 110)
+}
+
+.properties p i{
+    font-size:0.9rem;
+}
+
+@media only screen and (max-width:768px){
+    .footer-result ul{
+        justify-content: center;
+    }
+}
+
+
 
 
 /* Responsive CSS*/

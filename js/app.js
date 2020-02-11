@@ -7,13 +7,24 @@ const tempCUi = document.getElementById('tempinC'),
     drinkingResult = document.getElementById('drinkingResult'),
     aquaticResult = document.getElementById('aquaticResult'),
     agricultureResult = document.getElementById('agricultureResult'),
+    waterAcidityUi = document.getElementById('waterAcidity')
     //processing returned object value. Keys name are random, so picking last key and return the value.
-    processVal = (obj) => obj[Object.keys(obj)[Object.keys(obj).length - 1]];
+    processVal = (obj) => Number(obj[Object.keys(obj)[Object.keys(obj).length - 1]]);
 
 
 const checkPropertyLimit =(lower,upper,val) =>{
     return !(val<lower || val>upper)
 }
+
+const setDangerUi = (val,upper,lower,elem) =>{
+    if(val<lower || val >upper){
+        elem.parentElement.className = 'properties bg-danger text-white'
+        return false;
+    }
+    elem.parentElement.className = 'properties'
+    return true;
+}
+
 
 const purposeSuitablity =(purpose,idealpHRange,idealTRange,pH,T)=>{
 
@@ -34,6 +45,16 @@ const purposeSuitablity =(purpose,idealpHRange,idealTRange,pH,T)=>{
 }
 
 
+const setAcidityUi = (pH,ui) =>{
+    let txt;
+
+    if(pH>=0 && pH<=5.9) txt = 'Water is acidic. acidic  pH range (0 - 5.9)'
+    else if(pH>=6 && pH<=8) txt = 'Water is Neutral. Neutral  pH range (6 - 8)'
+    else if(pH>=8.1 && pH<=14) txt = 'Water is basic. Base  pH range (8.1 - 14)'
+    else txt = 'Water pH value is out of range'
+    ui.textContent = txt;
+}
+
 
 const manipulateUi = ({ TempinC, TempinF, Time, Turbidity, pH }) => {
     const tempinC = processVal(TempinC),
@@ -50,7 +71,13 @@ const manipulateUi = ({ TempinC, TempinF, Time, Turbidity, pH }) => {
 
     drinkingResult.innerHTML = purposeSuitablity('drinking',{lowerpH:6.5,upperpH:8},{lowerT:0,upperT:5},phVal,turbidity);
     aquaticResult.innerHTML = purposeSuitablity('aquatic organisms',{lowerpH:6,upperpH:9},{lowerT:0,upperT:25},phVal,turbidity);
-    agricultureResult.innerHTML = purposeSuitablity('Agriculture purpose',{lowerpH:6.5,upperpH:8.5},{lowerT:0,upperT:2},phVal,turbidity);
+    agricultureResult.innerHTML = purposeSuitablity('Agriculture purpose',{lowerpH:6.5,upperpH:8.5},{lowerT:0,upperT:200},phVal,turbidity);
+
+
+    setDangerUi(turbidity,5,0,turbidUi);
+    setDangerUi(phVal,8,6.5,phUi);
+
+    setAcidityUi(phVal,waterAcidityUi);
     
 }
 
