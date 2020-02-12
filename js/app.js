@@ -26,18 +26,28 @@ const setDangerUi = (val,upper,lower,elem) =>{
 }
 
 
-const purposeSuitablity =(purpose,idealpHRange,idealTRange,pH,T)=>{
-
+const purposeSuitablity =(purpose,idealpHRange,idealTRange,pH,T,idealF=null,idealC=null,f=null,c=null)=>{
+    
     const {lowerpH,upperpH} = idealpHRange;
     const {lowerT,upperT} = idealTRange;
     let txt;
     let html;
-    if(checkPropertyLimit(lowerpH,upperpH,pH) && checkPropertyLimit(lowerT,upperT,T) ){
-        txt = `Suitable for ${purpose}`;
-        html = `<span class="text-success"> <i class="fas fa-check-circle"></i> ${txt}</span>`
-        return html;
+    if(idealF){
+        const {lowerF,upperF} = idealF;
+        const {lowerC,upperC} = idealC;
+        if(checkPropertyLimit(lowerpH,upperpH,pH) && checkPropertyLimit(lowerT,upperT,T)  && checkPropertyLimit(lowerF,upperF,f) && checkPropertyLimit(lowerC,upperC,c)){
+            txt = `Suitable for ${purpose}`;
+            html = `<span class="text-success"> <i class="fas fa-check-circle"></i> ${txt}</span>`
+            return html;
+        }
+    }else{
+        if(checkPropertyLimit(lowerpH,upperpH,pH) && checkPropertyLimit(lowerT,upperT,T) ){
+            txt = `Suitable for ${purpose}`;
+            html = `<span class="text-success"> <i class="fas fa-check-circle"></i> ${txt}</span>`
+            return html;
+        }
     }
-
+   
     txt = `Not Suitable for ${purpose}`;
     html = `<span class="text-danger"> <i class="fas fa-times-circle"></i> ${txt}</span>`
     return html
@@ -68,19 +78,21 @@ const manipulateUi = ({ TempinC, TempinF, Time, Turbidity, pH }) => {
         turbidity = processVal(Turbidity),
         phVal = processVal(pH);
     
-    tempCUi.textContent = tempinC;   
-    tempFUi.textContent = tempinF;   
+    tempCUi.textContent = tempinC +' °C';   
+    tempFUi.textContent = tempinF+ ' °F';   
     timeUi.textContent = new Date(time).toLocaleTimeString();   
     turbidUi.textContent = turbidity;   
     phUi.textContent = phVal;  
 
-    drinkingResult.innerHTML = purposeSuitablity('drinking',{lowerpH:6.5,upperpH:8},{lowerT:0,upperT:5},phVal,turbidity);
+    drinkingResult.innerHTML = purposeSuitablity('drinking',{lowerpH:6.5,upperpH:8},{lowerT:0,upperT:5},phVal,turbidity,{lowerF:50,upperF:104},{lowerC:10,upperC:40},tempinF,tempinC);
     aquaticResult.innerHTML = purposeSuitablity('aquatic organisms',{lowerpH:6,upperpH:9},{lowerT:0,upperT:25},phVal,turbidity);
     agricultureResult.innerHTML = purposeSuitablity('Agriculture purpose',{lowerpH:6.5,upperpH:8.5},{lowerT:0,upperT:200},phVal,turbidity);
 
 
     setDangerUi(turbidity,5,0,turbidUi);
     setDangerUi(phVal,8,6.5,phUi);
+    setDangerUi(tempinC,40,10,tempCUi);
+    setDangerUi(tempinF,104,50,tempFUi);
 
     setAcidityUi(phVal,waterAcidityUi);
     
