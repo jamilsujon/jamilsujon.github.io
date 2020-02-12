@@ -48,9 +48,14 @@ const purposeSuitablity =(purpose,idealpHRange,idealTRange,pH,T)=>{
 const setAcidityUi = (pH,ui) =>{
     let txt;
 
-    if(pH>=0 && pH<=5.9) txt = 'Water is acidic. acidic  pH range (0 - 5.9)'
-    else if(pH>=6 && pH<=8) txt = 'Water is Neutral. Neutral  pH range (6 - 8)'
-    else if(pH>=8.1 && pH<=14) txt = 'Water is basic. Base  pH range (8.1 - 14)'
+    if(pH>0 && pH<3) txt = 'Water is extremely acidic. Extremely acidic  pH range is between (0 - 3)'
+    else if(pH>=3 && pH<4.5) txt = 'Water is acidic. Acidic  pH range (3 - 4.5)'
+    else if(pH>=4.5 && pH<6.5) txt = 'Water is slightly acidic. Slightly acidic  pH range (4.5 - 6.5)'
+    else if(pH>=6.5 && pH<7.5) txt = 'Water is neutral. Neutral pH range is (6.5 - 7.5)'
+    else if(pH>=7.5 && pH<9.5) txt = 'Water is slightly basic. Slightly basic pH range is (7.5 - 9.5)'
+    else if(pH>=9.5 && pH<11) txt = 'Water is basic. Basic pH range is (9.5 - 11)'
+    else if(pH>=11 && pH<14) txt = 'Water is extremely basic. Extremely basic pH range is (11 - 14)'
+
     else txt = 'Water pH value is out of range'
     ui.textContent = txt;
 }
